@@ -62,91 +62,74 @@ public class PracticeForm {
 
         //заполняем формы
         //Имя
-        if(firstName.isDisplayed()){
-            firstName.setValue(nameText);
-        }
+        firstName.setValue(nameText);
+
         //Фамилия
-        if(lastName.isDisplayed()){
-            lastName.setValue(surnameText);
-        }
+        lastName.setValue(surnameText);
+
         //Почта
-        if(email.isDisplayed()){
-            email.setValue(emailText);
-        }
+        email.setValue(emailText);
+
         //Пол
-        if(genderRadioButton.isDisplayed()){
-            genderRadioButton.click();
-        }
+        genderRadioButton.click();
+
         //Телефон
-        if(mobileNumber.isDisplayed()){
-            mobileNumber.setValue(phoneText);
-        }
+        mobileNumber.setValue(phoneText);
+
         //заполняем форму даты рандомными числами (импровизация)
         Faker faker=new Faker();
         LocalDate dateBirth=faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();//LocalDate.of(2000,1,26);
         DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
-        if(dateOfBirthInput.isDisplayed()){
-            dateOfBirthInput.val(dateBirth.format(dateTimeFormatter));
-            dateOfBirthInput.sendKeys(Keys.HOME,
+        dateOfBirthInput.val(dateBirth.format(dateTimeFormatter));
+        dateOfBirthInput.sendKeys(Keys.HOME,
                     Keys.DELETE,Keys.DELETE,Keys.DELETE,
                     Keys.DELETE,Keys.DELETE,Keys.DELETE,Keys.DELETE,
                     Keys.DELETE,Keys.DELETE,Keys.DELETE,Keys.DELETE,Keys.ENTER);
-        }
+
         //Дисциплины
-        if (subjects.isDisplayed()){
-            subjects.setValue("En").pressEnter();
-            subjects.setValue("M").pressEnter();
-        }
+        subjects.setValue("En").pressEnter();
+        subjects.setValue("M").pressEnter();
+
         //Хобби
-        if (hobbiesReading.isDisplayed()){
-            hobbiesReading.click();
-        }
-        if (hobbiesMusic.isDisplayed()){
-            hobbiesMusic.click();
-        }
+        hobbiesReading.click();
+        hobbiesMusic.click();
+
         //Картинка
-        if (picture.isDisplayed()){
-            picture.uploadFile(new File("src/test/resources/qa_guru_conflict_merge.png"));
-        }
+        picture.uploadFile(new File("src/test/resources/qa_guru_conflict_merge.png"));
+
         //Текущий адрес
-        if (currentAddress.isDisplayed()){
-            currentAddress.setValue(currentAddressText);
-        }
+        currentAddress.setValue(currentAddressText);
+
         //stateAndCity
-        if (state.isDisplayed()){
-            state.click();
-            stateNCR.click();
-            if (city.isEnabled()){
-                city.click();
-                cityDelhi.click();
-            }
-        }
+        state.click();
+        stateNCR.click();
+        city.click();
+        cityDelhi.click();
+
         //Нажимаем на кнопку Submit
-        if(buttonSubmit.isDisplayed()){
-            buttonSubmit.scrollTo().submit();
-        }
+        buttonSubmit.scrollTo().submit();
+
 
 
 
 
         //проверяем значения таблицы результата
-        if (modalResult.isDisplayed()){
-            tableOfResult.get(0).shouldHave(text(nameText+" "+surnameText));//Student Name
-            tableOfResult.get(1).shouldHave(text(emailText));//Student Email
-            tableOfResult.get(2).shouldHave(text("Female"));//Gender
-            tableOfResult.get(3).shouldHave(text(phoneText));//Mobile
+        tableOfResult.get(0).shouldHave(text(nameText+" "+surnameText));//Student Name
+        tableOfResult.get(1).shouldHave(text(emailText));//Student Email
+        tableOfResult.get(2).shouldHave(text("Female"));//Gender
+        tableOfResult.get(3).shouldHave(text(phoneText));//Mobile
 
-            String dateOfBirthForEquals=tableOfResult.get(4).getText();
-            DateTimeFormatter dateTimeFormatterReverse=DateTimeFormatter.ofPattern("dd' 'MMMM','yyyy", Locale.ENGLISH);
-            LocalDate dateBirthReverse=LocalDate.parse(dateOfBirthForEquals, dateTimeFormatterReverse);
-            assertEquals(dateBirthReverse, dateBirth);//Date of Birth
+        String dateOfBirthForEquals=tableOfResult.get(4).getText();
+        DateTimeFormatter dateTimeFormatterReverse=DateTimeFormatter.ofPattern("dd' 'MMMM','yyyy", Locale.ENGLISH);
+        LocalDate dateBirthReverse=LocalDate.parse(dateOfBirthForEquals, dateTimeFormatterReverse);
+        assertEquals(dateBirthReverse, dateBirth);//Date of Birth
 
-            tableOfResult.get(5).shouldHave(text("English"+", "+"Maths"));//Subjects
-            tableOfResult.get(6).shouldHave(text("Reading"+", "+"Music"));//Hobbies
-            tableOfResult.get(7).shouldHave(text("qa_guru_conflict_merge.png"));//Picture
-            tableOfResult.get(8).shouldHave(text("Almaty, Al-Farabi, 36"));//Address
-            tableOfResult.get(9).shouldHave(text("NCR Delhi"));//State and City
-        }
+        tableOfResult.get(5).shouldHave(text("English"+", "+"Maths"));//Subjects
+        tableOfResult.get(6).shouldHave(text("Reading"+", "+"Music"));//Hobbies
+        tableOfResult.get(7).shouldHave(text("qa_guru_conflict_merge.png"));//Picture
+        tableOfResult.get(8).shouldHave(text("Almaty, Al-Farabi, 36"));//Address
+        tableOfResult.get(9).shouldHave(text("NCR Delhi"));//State and City
+
 
     }
 }
