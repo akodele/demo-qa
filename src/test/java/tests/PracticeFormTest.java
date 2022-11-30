@@ -20,27 +20,28 @@ public class PracticeFormTest extends TestBase {
     @Test
     public void fillingTheFields() throws InterruptedException {
         //переменные
-        String nameText="Akerke";
-        String surnameText="Kalibekova";
-        String emailText="akalibekova@jmart.kz";
-        String genderText="Female";
-        String phoneText="7777777777";
-
         Faker faker=new Faker();
+
         LocalDate dateBirth=faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();//LocalDate.of(2000,1,26);
         DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd' 'MMMM','yyyy", Locale.ENGLISH);
-        String dateBirthForCheck=dateBirth.format(dateTimeFormatter);
 
-        String[] setSubjectTexts={"En","M"};
-        String[] checkSubjectTexts={"English","Maths"};
+        String nameText=faker.name().firstName(),
+                surnameText=faker.name().lastName(),
+                emailText=faker.internet().emailAddress(),
+                genderText="Female",
+                phoneText=faker.phoneNumber().subscriberNumber(10),
+                currentAddressText=faker.address().fullAddress(),
+                dateBirthForCheck=dateBirth.format(dateTimeFormatter),
+                fileName="qa_guru_conflict_merge.png",
+                stateName="NCR",
+                cityName="Delhi";
 
-        String[] hobbiesNames={"Reading","Music"};
+        String[] setSubjectTexts={"En","M"},
+                checkSubjectTexts={"English","Maths"},
+                hobbiesNames={"Reading","Music"};
 
-        String fileName="qa_guru_conflict_merge.png";
         File picture=new File("src/test/resources/"+fileName);
-        String currentAddressText="Almaty, Al-Farabi, 36";
-        String stateName="NCR";
-        String cityName="Delhi";
+
 
         registrationPage.
                 openRegistrationPage(). //открываем страницу
