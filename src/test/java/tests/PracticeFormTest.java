@@ -41,7 +41,7 @@ public class PracticeFormTest extends TestBase {
                 hobbiesNames={"Reading","Music"};
 
         File picture=new File("src/test/resources/"+fileName);
-
+        System.out.println("ffffffffffffffffffff");
 
         registrationPage.
                 openRegistrationPage(). //открываем страницу
