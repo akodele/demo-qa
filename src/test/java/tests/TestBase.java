@@ -1,6 +1,9 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import config.ConfigReader;
+import config.ProjectConfiguration;
+import config.WebConfig;
 import helpers.Attach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,21 +13,15 @@ import pages.components.RegistrationResultsModal;
 
 public class TestBase {
 
+    private static final WebConfig webConfig = ConfigReader.read();
+
     RegistrationPage registrationPage=new RegistrationPage();
     RegistrationResultsModal registrationResultsModal=new RegistrationResultsModal();
+
     @BeforeAll
     static void beforeAll() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browser=System.getProperty("browser","chrome");
-        Configuration.browserVersion=System.getProperty("browserVersion","100.0");
-        Configuration.browserSize = System.getProperty("browserSize","1920x1080");
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.remote = System.getProperty("selenoidUrl","https://user1:1234@selenoid.autotests.cloud")+"/wd/hub";
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
+        ProjectConfiguration projectConfiguration = new ProjectConfiguration(webConfig);
+        projectConfiguration.webConfig();
     }
     @AfterEach
     void addAttachments() {
